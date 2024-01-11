@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissor+</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+         }
+         .container{
+            width:100%;
+            height: 100vh;
+            background:url("/day background.jpg");
+            background-size: cover;
+            border:1px solid rgb(255, 255, 255);
+            position: relative;
+         }
+         .header{
+            width: 100%;
+            font-size: larger;
+            display: flex;
+         }
+         .header h1{
+            width:90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+         }
+         .header .menus{
+            width:10%;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+         }
+         .header .menus li{
+            display: flex;
+            align-items: center;
+            margin-left:10px;
+            animation: rotate 3s infinite ease-out;
+        }
+        @keyframes rotate {
+            0%{
+                transform:rotateY(0deg);
+            }
+            100%{
+                transform:rotateY(180deg);
+            }
+        }
+        #result{
+            font-size: 27px;
+            font-weight: bold;
+            color:rgb(255, 255, 255);
+            background-color:royalblue;
+            padding:10px;
+            border-radius: 10px;
+        }
+        .playbtndiv{
+            text-align: center;
+            margin-top:188px;
+        }
+        .playbtn{
+            font-size: 35px;
+            letter-spacing: 6px;
+            padding:10px 35px;
+            background-color: red;
+            color:white;
+            border:none;
+            margin-top:30px;
+        }
+        .playbtn:hover{
+            background-color: white;
+            color:red;
+        }
+        .image{
+            display: flex;
+            justify-content: space-around;
+        }
+        .image img{
+            margin-top: -50px;
+        }
+        .startbtn{
+            padding: 10px 50px;
+            font-size: 70px;
+            letter-spacing: 1px;
+            color:black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor:pointer;
+            background: linear-gradient(to right, rgb(255, 14, 14),rgb(179, 0, 255));
+            border:10px inset rgb(0, 0, 0);
+            position: absolute;
+            top:50%;
+            left:50%;
+            animation: scale 2s infinite linear;
+        }
+        @keyframes scale {
+            0%{
+                transform:scale(1.1) translate(-50%,-50%);
+            }
+            50%{
+                transform:scale(1) translate(-50%,-50%);
+            }
+            100%{
+                transform: scale(1.1) translate(-50%,-50%);
+            }
+        }
+        .startbtn:hover{
+            background:linear-gradient(to left, rgb(255, 14, 14),rgb(179, 0, 255));
+            border:10px solid rgb(0, 0, 0);
+        }
+        .startbtn img{
+            margin-left: 15px;
+        }
+        .choice{
+            margin-top:278px;
+        }
+        .choiceheading{
+            position: absolute;
+            top:30px;
+            left:450px;
+            font-size: 70px;
+            font-variant: small-caps;
+            letter-spacing: 4px;
+        }
+        .choiceimg:hover{
+            transform: translateY(-50px) scale(1.1);
+        }
+        .scorecard{
+            position: absolute;
+            top:8px;
+            left:310px;
+        }
+        table{
+            border:3px solid rgb(0, 0, 0);
+        }
+        
+        th{
+            width:300px;
+            height: 100px;
+            font-size: 50px;
+            border:2px solid rgb(0, 0, 0);
+            border-radius: 20px;
+            background-color: rgb(0, 162, 255);
+        }
+        td{
+            text-align: center;
+            font-size: 30px;
+            font-variant: small-caps;
+        }
+        .exiticon{
+            position:fixed;
+            top:15px;
+            right:50px;
+        }
+        #clickinfo{
+            position:absolute;
+            font-size: 35px;
+            top:130px;
+            left:30%;
+            font-variant: small-caps;
+            font-family: 'Orbitron', sans-serif;        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="header">
+            <h1>尺ㄖ匚Ҝ - 卩卂卩乇尺 - 丂匚丨丂丂ㄖ尺 💥 Ꮆ卂爪乇 </h1>
+            <p id="clickinfo">click the play text in the button to start</p>
+            <ul class="menus">
+                <li onclick="handledark()"><img src="/darkmode.png" alt="dark mode icon" width="40"></li>
+                <li onclick="handlelight()"><img src="/lightmode.png" alt="light mode icon" width="40"></li>
+            </ul>
+        </div>
+        <div class="main">
+            <div class="playbtndiv">
+                <button class="playbtn" onclick="handlestart()">Play Again!</button>
+            </div>
+            <div class="image">
+                <img src="/paperpic.png" alt="player image" height="500" class="playerimg">
+                <img src="/rockpic.png" alt="computer image" height="500" class="computerimg">
+            </div>
+            <div class="start">
+                <button class="startbtn" >Shall we <img src="playicon.png" alt="playicon" width="200" onclick="handlestart()"></button>
+            </div>
+            <div class="choice">
+                <h1 class="choiceheading">choose your choice</h1>
+                <div class="image">
+                    <img src="/rockpic.png" alt="player image" height="500" class="choiceimg" onclick="playerchoice(1)">
+                    <img src="/paperpic.png" alt="computer image" height="500" class="choiceimg" onclick="playerchoice(2)">
+                    <img src="/scissorpic.png" alt="computer image" height="500" class="choiceimg" onclick="playerchoice(3)">
+                </div>
+            </div>
+            <div class="scorecard">
+                <table cellspacing="5px">
+                    <tr>
+                        <th id="playerresult">0</th>
+                        <th>SCORE</th>
+                        <th id="computerresult">0</th>
+                    </tr>
+                    <tr>
+                        <td>You</td>
+                        <td id="result"></td>
+                        <td>Computer</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="exiticon">
+                <img src="exiticon.png" alt="exiticon" width="100" onclick="handleexit()">
+            </div>
+        </div>
+    </div>
+    <script>
+        const startbtn = document.querySelector(".startbtn");
+        const container = document.getElementById("container");
+        const playbtn = document.querySelector(".playbtn");
+        const image = document.querySelector(".image");
+        const result = document.getElementById("result");
+        const header = document.querySelector(".header");
+        const choice = document.querySelector(".choice");
+        const choiceimg = document.querySelector(".choiceimg");
+        const playerimage = document.querySelector(".playerimg");
+        const computerimage = document.querySelector(".computerimg");
+        const scorecard = document.querySelector(".scorecard");
+        const exiticon = document.querySelector(".exiticon");
+        const playerresult = document.getElementById("playerresult");
+        const computerresult = document.getElementById("computerresult");
+        playbtn.style.display = "none";
+        image.style.display = "none";
+        choice.style.display = "none";
+        scorecard.style.display = "none";
+        exiticon.style.display = "none";
+        // background running
+        let i=0;
+        function run(){
+            i++;
+            container.style.backgroundPosition=i+"px";
+        }
+        setInterval(run,5);
+        //hanle theme darkmode or lightmode
+        function handledark(){
+            container.style.background="url('/night background.jpg')";
+            container.style.backgroundSize="cover";
+            container.style.color="white";
+            result.style.color="red";
+        }
+        function handlelight(){
+            container.style.background="url('/day background.jpg')";
+            container.style.backgroundSize="cover";
+            container.style.color="black";
+        }
+        //handlestart
+        function handlestart(){
+            startbtn.style.display = "none";
+            playbtn.style.display = "none";
+            image.style.display = "none";
+            header.style.display = "none";
+            scorecard.style.display = "none";
+            choice.style.display = "block";
+            exiticon.style.display = "block";
+        }
+        //playerchoice
+        let playerscore = 0,computerscore = 0;
+        function playerchoice(num){
+            choice.style.display = "none";
+            image.style.display = "flex";
+            playbtn.style.display = "inline";
+            scorecard.style.display = "block";
+            if(num===1){
+                playerimage.src = "rockpic.png";
+            }
+            else if(num===2){
+                playerimage.src = "paperpic.png";
+            }
+            if(num===3){
+                playerimage.src = "scissorpic.png";
+            }
+            //computer's choice
+            const randomnumber = Math.floor(Math.random()*3)+1;
+            if(randomnumber===1){
+                computerimage.src = "rockpic.png";
+            }
+            else if(randomnumber===2){
+                computerimage.src = "paperpic.png";
+            }
+            if(randomnumber===3){
+                computerimage.src = "scissorpic.png";
+            }
+            //decalring winner
+            let winner;
+            if(num===randomnumber){
+                result.innerText = "TIE GAME";
+            }
+            else{
+                if(num===1){
+                    winner=(randomnumber===3)?"YOU":"COMPUTER";
+                }
+                if(num===3){
+                    winner=(randomnumber===2)?"YOU":"COMPUTER";
+                }
+                if(num===2){
+                    winner=(randomnumber===1)?"YOU":"COMPUTER";
+                }
+                result.innerText = winner+" WINS 👑";
+                if(winner==="YOU"){
+                    playerscore++;
+                    playerresult.innerText = playerscore;
+                }
+                else{
+                    computerscore++;
+                    computerresult.innerText = computerscore;
+                }
+            }
+        }
+        //handleexit
+        function handleexit(){
+            header.style.display = "flex";
+            startbtn.style.display = "flex";
+            choice.style.display = "none";
+            image.style.display = "none";
+            playbtn.style.display = "none";
+            scorecard.style.display = "none";
+            exiticon.style.display = "none";
+            playerscore = 0;
+            computerscore = 0;
+            playerresult.innerText = 0;
+            computerresult.innerText = 0;
+        }
+    </script>
+</body>
+</html>
